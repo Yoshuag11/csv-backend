@@ -4,9 +4,17 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon index.js"
+    "build": "babel src --out-dir dist",
+    "watch": "babel --watch src --out-dir dist",
+    "start": "nodemon dist/app.js"
   },
   "dependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/plugin-transform-arrow-functions": "^7.2.0",
+    "@babel/polyfill": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "core-js": "3",
     "csvtojson": "^2.0.8"
   },
   "devDependencies": {
