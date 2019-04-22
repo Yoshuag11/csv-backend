@@ -1,12 +1,12 @@
 import { Client } from 'pg';
 
-
 const client = new Client({
     user: 'postgres',
     password: 'postgres',
     database: 'mydb'
 });
 const dbTable = 'data';
+
 client.connect();
 /**
  * Query data from the uploaded file stored in postgreSQL
