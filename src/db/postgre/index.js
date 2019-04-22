@@ -7,7 +7,7 @@ const client = new Client({
     database: 'mydb'
 });
 const dbTable = 'data';
-
+client.connect();
 /**
  * Query data from the uploaded file stored in postgreSQL
  * @param {Object} options 
@@ -30,7 +30,7 @@ export function getFiltered(options) {
  * @param {string[]} keys headers
  * @param {string[]} jsonData data to save
  */
-export async function setData([keys = [], ...jsonData] = []) {
+export async function setData(jsonData = []) {
     const values = jsonData.map(data => {
         return (
             `'${data.Type}', '${data.Direction}', '${data.From}',
@@ -50,5 +50,6 @@ export async function setData([keys = [], ...jsonData] = []) {
          ) VALUES ( ${ values.join(' ), ( ')} );`;
 
     await client.query(query);
+    const keys = Object.keys(jsonData[0]);
     return keys;
 }

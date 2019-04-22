@@ -16,6 +16,7 @@ const client = new _pg.Client({
   database: 'mydb'
 });
 const dbTable = 'data';
+client.connect();
 /**
  * Query data from the uploaded file stored in postgreSQL
  * @param {Object} options 
@@ -44,7 +45,7 @@ function getFiltered(options) {
  */
 
 
-async function setData([keys = [], ...jsonData] = []) {
+async function setData(jsonData = []) {
   const values = jsonData.map(function (data) {
     return `'${data.Type}', '${data.Direction}', '${data.From}',
              '${data.To}', '${data.Extension}',
@@ -60,5 +61,6 @@ async function setData([keys = [], ...jsonData] = []) {
             "result description", duration, included, purchased
          ) VALUES ( ${values.join(' ), ( ')} );`;
   await client.query(query);
+  const keys = Object.keys(jsonData[0]);
   return keys;
 }
